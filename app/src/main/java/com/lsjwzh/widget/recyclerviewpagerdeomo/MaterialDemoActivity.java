@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
@@ -31,12 +32,12 @@ public class MaterialDemoActivity extends AppCompatActivity {
 
     private void initTabLayout() {
         //给TabLayout增加Tab, 并关联ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         TabLayoutSupport.setupWithViewPager(tabLayout, mRecyclerView, mAdapter);
     }
 
     protected void initViewPager() {
-        mRecyclerView = (RecyclerViewPager) findViewById(R.id.viewpager);
+        mRecyclerView = findViewById(R.id.viewpager);
         LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
                 false);
         mRecyclerView.setLayoutManager(layout);
@@ -45,6 +46,8 @@ public class MaterialDemoActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLongClickable(true);
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(50, mRecyclerView.getAdapter().getItemCount()));
+//        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper(){};
+//        pagerSnapHelper.attachToRecyclerView(mRecyclerView);
         mRecyclerView.addOnPageChangedListener(new RecyclerViewPager.OnPageChangedListener() {
             @Override
             public void OnPageChanged(int oldPosition, int newPosition) {

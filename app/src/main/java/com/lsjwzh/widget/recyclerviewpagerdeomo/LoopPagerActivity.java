@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager;
 
 public class LoopPagerActivity extends Activity {
+    private static final String TAG = LoopPagerActivity.class.getSimpleName();
     protected LoopRecyclerViewPager mRecyclerViewPager;
     private EditText mTargetPosition;
     private Button mScrollToPosition;
@@ -38,8 +40,6 @@ public class LoopPagerActivity extends Activity {
 
         LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
                 false);
-        mRecyclerViewPager.setTriggerOffset(0.15f);
-        mRecyclerViewPager.setFlingFactor(0.25f);
         mRecyclerViewPager.setLayoutManager(layout);
         mRecyclerViewPager.setAdapter(new LayoutAdapter(this, mRecyclerViewPager));
         mRecyclerViewPager.setHasFixedSize(true);

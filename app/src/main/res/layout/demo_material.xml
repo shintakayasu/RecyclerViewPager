@@ -37,6 +37,8 @@
     android:clipToPadding="false"
     app:rvp_singlePageFling="false"
     app:rvp_triggerOffset="0.1"
+    app:tabMode="scrollable"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     />
 

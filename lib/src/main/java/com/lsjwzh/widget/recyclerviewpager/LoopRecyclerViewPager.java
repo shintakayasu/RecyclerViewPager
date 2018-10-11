@@ -7,6 +7,8 @@ import android.util.Log;
 
 public class LoopRecyclerViewPager extends RecyclerViewPager {
 	
+	private static final String TAG = LoopRecyclerViewPager.class.getSimpleName();
+	
 	public LoopRecyclerViewPager(Context context) {
 		this(context, null);
 	}
@@ -17,6 +19,7 @@ public class LoopRecyclerViewPager extends RecyclerViewPager {
 	
 	public LoopRecyclerViewPager(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		Log.e(TAG+ ":LoopRecyclerViewPager", "　");
 	}
 	
 	@Override
@@ -51,7 +54,6 @@ public class LoopRecyclerViewPager extends RecyclerViewPager {
 	public void smoothScrollToPosition(int position) {
 		int transformedPosition = transformInnerPositionIfNeed(position);
 		super.smoothScrollToPosition(transformedPosition);
-		Log.e("test", "transformedPosition:" + transformedPosition);
 	}
 	
 	/**
@@ -106,7 +108,7 @@ public class LoopRecyclerViewPager extends RecyclerViewPager {
 				- actualCurrentPosition
 				+ actualItemCount
 				+ position % actualItemCount;
-		Log.e("test", bakPosition1 + "/" + bakPosition2 + "/" + bakPosition3 + "/" + getCurrentPosition());
+		
 		// get position which is closer to current position
 		if (Math.abs(bakPosition1 - getCurrentPosition()) > Math.abs(bakPosition2 -
 				getCurrentPosition())){
