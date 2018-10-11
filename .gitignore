@@ -37,3 +37,6 @@ proguard/
 
 #OSx
 .DS_Store
+
+.idea/instapk.xml
+instapk.log*
