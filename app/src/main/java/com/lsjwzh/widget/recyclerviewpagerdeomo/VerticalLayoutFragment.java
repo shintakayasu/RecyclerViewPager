@@ -73,7 +73,7 @@ public class VerticalLayoutFragment extends Fragment {
         mStateText = (TextView) view.getRootView().findViewById(R.id.state);
         updateState(RecyclerView.SCROLL_STATE_IDLE);
 
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
                 updateState(scrollState);

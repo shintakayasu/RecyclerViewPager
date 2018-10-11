@@ -45,7 +45,7 @@ public class LoopPagerActivity extends Activity {
         mRecyclerViewPager.setHasFixedSize(true);
         mRecyclerViewPager.setLongClickable(true);
 
-        mRecyclerViewPager.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerViewPager.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
 

@@ -30,7 +30,7 @@ public class VerticalPagerActivity extends Activity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLongClickable(true);
 
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
 
