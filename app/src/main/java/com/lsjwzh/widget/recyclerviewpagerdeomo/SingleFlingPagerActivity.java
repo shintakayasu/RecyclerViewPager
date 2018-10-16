@@ -2,12 +2,14 @@ package com.lsjwzh.widget.recyclerviewpagerdeomo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
+import com.lsjwzh.widget.recyclerviewpager.TabLayoutSupport;
 
 public class SingleFlingPagerActivity extends Activity {
     protected RecyclerViewPager mRecyclerView;
@@ -17,13 +19,25 @@ public class SingleFlingPagerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_single_fling_pager);
         initViewPager();
+    
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+    
+        TabLayoutSupport.setupWithViewPager(tabLayout, mRecyclerView, new TabLayoutSupport.ViewPagerTabLayoutAdapter() {
+            @Override
+            public String getPageTitle(int position) {
+                return ""+position;
+            }
+    
+            @Override
+            public int getItemCount() {
+                return mRecyclerView.getWrapperAdapter().getItemCount();
+            }
+        });
     }
 
     protected void initViewPager() {
-        mRecyclerView = (RecyclerViewPager)findViewById(R.id.viewpager);
-        LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
-                false);
-        mRecyclerView.setLayoutManager(layout);
+        mRecyclerView = findViewById(R.id.viewpager);
         mRecyclerView.setAdapter(new LayoutAdapter(this, mRecyclerView));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLongClickable(true);

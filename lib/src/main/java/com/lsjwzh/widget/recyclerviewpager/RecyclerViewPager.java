@@ -8,10 +8,14 @@ import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.subjects.BehaviorSubject;
 
 /**
  * RecyclerViewPager
@@ -25,8 +29,9 @@ public class RecyclerViewPager extends RecyclerView {
 	
 	private RecyclerViewPagerAdapter<?> mViewPagerAdapter;
 	private List<OnPageChangedListener> mOnPageChangedListeners;
-	private int mSmoothScrollTargetPosition = -1;
-	private int mPositionBeforeScroll = -1;
+	
+	private final BehaviorSubject<Integer> currentItemPositionSubject = BehaviorSubject.createDefault(0);
+	private int oldPosition;
 	
 	public RecyclerViewPager(Context context) {
 		this(context, null);
@@ -43,6 +48,50 @@ public class RecyclerViewPager extends RecyclerView {
 		
 		PagerSnapHelper pagerSnapHelper = new PagerSnapHelper(){};
 		pagerSnapHelper.attachToRecyclerView(this);
+		
+		oldPosition = getCurrentPosition();
+		currentItemPositionSubject.onNext(getCurrentPosition());
+		
+		currentItemPositionSubject.subscribe(new DisposableObserver<Integer>() {
+			@Override
+			public void onNext(Integer position) {
+				if (position >= 0 && position < getItemCount()) {
+					if (mOnPageChangedListeners != null) {
+						for (OnPageChangedListener onPageChangedListener : mOnPageChangedListeners) {
+							if (onPageChangedListener != null) {
+								onPageChangedListener.OnPageChanged(oldPosition, position);
+							}
+						}
+					}
+					oldPosition = position;
+				}
+			}
+			
+			@Override
+			public void onError(Throwable e) {
+			
+			}
+			
+			@Override
+			public void onComplete() {
+			
+			}
+		});
+		
+		
+		addOnScrollListener(new OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+				super.onScrollStateChanged(recyclerView, newState);
+			}
+			
+			@Override
+			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+				super.onScrolled(recyclerView, dx, dy);
+				
+				currentItemPositionSubject.onNext(getCurrentPosition());
+			}
+		});
 	}
 	
 	private void initAttrs(Context context, AttributeSet attrs, int defStyle) {
@@ -81,31 +130,7 @@ public class RecyclerViewPager extends RecyclerView {
 		if (DEBUG) {
 			Log.d(TAG + ":scrollToPosition", "scrollToPosition:" + position);
 		}
-		mPositionBeforeScroll = getCurrentPosition();
-		mSmoothScrollTargetPosition = position;
 		super.scrollToPosition(position);
-		
-		getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-			@SuppressWarnings("deprecation")
-			@Override
-			public void onGlobalLayout() {
-				if (Build.VERSION.SDK_INT < 16) {
-					getViewTreeObserver().removeGlobalOnLayoutListener(this);
-				} else {
-					getViewTreeObserver().removeOnGlobalLayoutListener(this);
-				}
-				
-				if (mSmoothScrollTargetPosition >= 0 && mSmoothScrollTargetPosition < getItemCount()) {
-					if (mOnPageChangedListeners != null) {
-						for (OnPageChangedListener onPageChangedListener : mOnPageChangedListeners) {
-							if (onPageChangedListener != null) {
-								onPageChangedListener.OnPageChanged(mPositionBeforeScroll, getCurrentPosition());
-							}
-						}
-					}
-				}
-			}
-		});
 	}
 	
 	private int getItemCount() {
@@ -123,7 +148,7 @@ public class RecyclerViewPager extends RecyclerView {
 			curPosition = ViewUtils.getCenterYChildPosition(this);
 		}
 		if (curPosition < 0) {
-			curPosition = mSmoothScrollTargetPosition;
+			curPosition = currentItemPositionSubject.hasValue()? currentItemPositionSubject.getValue():0;
 		}
 		return curPosition;
 	}

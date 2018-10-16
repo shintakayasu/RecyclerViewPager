@@ -21,9 +21,6 @@ public class VerticalPagerActivity extends Activity {
     protected void initViewPager() {
         mRecyclerView = (RecyclerViewPager) findViewById(R.id.viewpager);
 
-        LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
-                false);
-        mRecyclerView.setLayoutManager(layout);
         mRecyclerView.setAdapter(new LayoutAdapter(this, mRecyclerView));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLongClickable(true);

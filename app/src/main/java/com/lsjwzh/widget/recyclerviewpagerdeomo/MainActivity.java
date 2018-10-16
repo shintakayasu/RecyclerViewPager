@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_list);
         mDemoRecyclerView = (RecyclerView) findViewById(R.id.demo_list);
-        mDemoRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager
-                .VERTICAL, false));
         mDemoRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager
                 .VERTICAL));
         mDemoListAdapter = new DemoListAdapter();
@@ -53,52 +51,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SingleFlingPagerActivity.class));
             }
         });
-        mDemoListAdapter.add(new DemoItem("Free Fling Pager(like ViewPager combine with Gallary)") {
-            @Override
-            void onClick() {
-                startActivity(new Intent(MainActivity.this, FreeFlingPagerActivity.class));
-            }
-        });
-        mDemoListAdapter.add(new DemoItem("Material Demo") {
-            @Override
-            void onClick() {
-                startActivity(new Intent(MainActivity.this, MaterialDemoActivity.class));
-            }
-        });
-        mDemoListAdapter.add(new DemoItem("Material Demo With loop pager") {
-            @Override
-            void onClick() {
-                startActivity(new Intent(MainActivity.this, MaterialDemoWithLoopPagerActivity.class));
-            }
-        });
         mDemoListAdapter.add(new DemoItem("Vertical ViewPager Demo") {
             @Override
             void onClick() {
                 startActivity(new Intent(MainActivity.this, VerticalPagerActivity.class));
             }
         });
-        mDemoListAdapter.add(new DemoItem("Loop ViewPager Demo") {
+        mDemoListAdapter.add(new DemoItem("Material Demo") {
             @Override
             void onClick() {
-                startActivity(new Intent(MainActivity.this, LoopPagerActivity.class));
-            }
-        });
-        mDemoListAdapter.add(new DemoItem("Reverse Single Fling Pager(like official ViewPager)") {
-            @Override
-            void onClick() {
-                startActivity(new Intent(MainActivity.this, ReverseSingleFlingPagerActivity.class));
-            }
-        });
-        mDemoListAdapter.add(new DemoItem("Reverse Vertical ViewPager Demo") {
-            @Override
-            void onClick() {
-                startActivity(new Intent(MainActivity.this, ReverseVerticalPagerActivity.class));
-            }
-        });
-        mDemoListAdapter.add(new DemoItem("3D effect Demo(TODO)") {
-            @Override
-            void onClick() {
-                // TODO: open 3D effect Demo
+                startActivity(new Intent(MainActivity.this, MaterialDemoActivity.class));
             }
         });
     }
