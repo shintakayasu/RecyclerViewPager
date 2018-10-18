@@ -16,12 +16,45 @@
 
 package com.lsjwzh.widget.recyclerviewpagerdeomo;
 
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.DrawableRes;
+
+import com.lsjwzh.MyApp;
+import com.lsjwzh.R;
+
 import java.util.Random;
 
 public class Cheeses {
 
     private static final Random RANDOM = new Random();
-
+    
+    private String text;
+    private Integer imageResId;
+    
+    public Cheeses() {
+        int size = sCheeseStrings.length;
+        text = sCheeseStrings[RANDOM.nextInt(size)];
+        imageResId = getRandomCheeseDrawable();
+    }
+    
+    private Drawable getDrawable(@DrawableRes int id){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            return MyApp.getInstance().getDrawable(id);
+        }
+        else{
+            return MyApp.getInstance().getResources().getDrawable(id);
+        }
+    }
+    
+    public String getText() {
+        return text;
+    }
+    
+    public Integer getImageResId() {
+        return imageResId;
+    }
+    
     public static int getRandomCheeseDrawable() {
         switch (RANDOM.nextInt(5)) {
             default:

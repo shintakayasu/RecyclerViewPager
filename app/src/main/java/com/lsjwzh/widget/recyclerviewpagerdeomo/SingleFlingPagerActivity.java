@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.lsjwzh.R;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.lsjwzh.widget.recyclerviewpager.TabLayoutSupport;
 

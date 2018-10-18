@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.lsjwzh.R;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 public class VerticalPagerActivity extends Activity {

@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lsjwzh.R;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 public class VerticalLayoutFragment extends Fragment {

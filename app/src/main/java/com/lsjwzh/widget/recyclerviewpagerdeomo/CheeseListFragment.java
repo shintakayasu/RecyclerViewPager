@@ -36,7 +36,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.lsjwzh.R;
+import com.squareup.picasso.Picasso;
 
 public class CheeseListFragment extends Fragment {
     private int mIndex;
@@ -130,6 +131,7 @@ public class CheeseListFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mBoundString = mValues.get(position);
             holder.mTextView.setText(mValues.get(position));
+            holder.mImageView.setTag(holder.hashCode()+""+position);
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,11 +139,17 @@ public class CheeseListFragment extends Fragment {
                     Toast.makeText(v.getContext(), "Item Clicked!", Toast.LENGTH_SHORT).show();
                 }
             });
-
-            Glide.with(holder.mImageView.getContext())
+    
+            holder.mImageView.setImageResource(Cheeses.getRandomCheeseDrawable());
+            Picasso.with(holder.mImageView.getContext())
                     .load(Cheeses.getRandomCheeseDrawable())
-                    .fitCenter()
+                    .centerInside()
+                    .fit()
                     .into(holder.mImageView);
+//            Glide.with(holder.mImageView.getContext())
+//                    .load(Cheeses.getRandomCheeseDrawable())
+//                    .fitCenter()
+//                    .into();
         }
 
         @Override

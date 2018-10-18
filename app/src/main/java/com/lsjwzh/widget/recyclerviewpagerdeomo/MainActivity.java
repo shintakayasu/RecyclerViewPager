@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lsjwzh.R;
 import com.lsjwzh.adapter.GenericRecyclerViewAdapter;
 import com.lsjwzh.adapter.OnRecyclerViewItemClickListener;
 
@@ -55,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             void onClick() {
                 startActivity(new Intent(MainActivity.this, VerticalPagerActivity.class));
+            }
+        });
+        mDemoListAdapter.add(new DemoItem("Material Demo used Fragment") {
+            @Override
+            void onClick() {
+                startActivity(new Intent(MainActivity.this, FragmentMaterialDemoActivity.class));
             }
         });
         mDemoListAdapter.add(new DemoItem("Material Demo") {

@@ -27,8 +27,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.lsjwzh.widget.recyclerviewpagerdeomo.R.id;
-import static com.lsjwzh.widget.recyclerviewpagerdeomo.R.layout;
+import static com.lsjwzh.R.id;
+import static com.lsjwzh.R.layout;
 
 public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.SimpleViewHolder> {
     private static final int DEFAULT_ITEM_COUNT = 100;
