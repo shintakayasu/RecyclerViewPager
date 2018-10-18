@@ -1,6 +1,7 @@
 package com.lsjwzh.widget.recyclerviewpagerdeomo;
 
 import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.MutableLiveData;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 import com.lsjwzh.R;
 import com.lsjwzh.databinding.PagerItemBinding;
 import com.lsjwzh.widget.recyclerviewpager.TabLayoutSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MaterialDemoListAdapter extends ListAdapter<PagerItemViewModel, MaterialDemoListAdapter.ViewHolder>
 		implements TabLayoutSupport.ViewPagerTabLayoutAdapter{
@@ -55,14 +59,23 @@ public class MaterialDemoListAdapter extends ListAdapter<PagerItemViewModel, Mat
 	public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 		PagerItemBinding itemBinding = viewHolder.getPagerItemBinding();
 		
-		itemBinding.getRoot().setOnClickListener(v -> {
-			Log.d(TAG, "pos= "+ i + "  itemCount= " + itemBinding.cheeseRecyclerView.getAdapter().getItemCount());
-		});
 		PagerItemViewModel pagerItemViewModel = getItem(i);
 		itemBinding.setViewModel(pagerItemViewModel);
 		
+		itemBinding.getRoot().setOnClickListener(v -> {
+			Log.d(TAG, "pos= "+ i + "  itemCount= " + itemBinding.cheeseRecyclerView.getAdapter().getItemCount());
+			
+			List<Cheeses> tmpList = pagerItemViewModel.getCheeseListLiveData().getValue();
+			tmpList.add(new Cheeses());
+			MutableLiveData<List<Cheeses>> tmpLiveData = new MutableLiveData<>();
+			tmpLiveData.setValue(tmpList);
+			pagerItemViewModel.setCheeseListLiveData(tmpLiveData);
+		});
+		
 		InnerRVListAdapter innerAdapter = new InnerRVListAdapter();
-		innerAdapter.submitList(pagerItemViewModel.getCheeseListLiveData().getValue());
+		if(pagerItemViewModel.getCheeseListLiveData().getValue() != null) {
+			innerAdapter.submitList(pagerItemViewModel.getCheeseListLiveData().getValue());
+		}
 		itemBinding.cheeseRecyclerView.setAdapter(innerAdapter);
 		
 		pagerItemViewModel.getCheeseListLiveData().observe(lifecycleOwner, cheeses -> {

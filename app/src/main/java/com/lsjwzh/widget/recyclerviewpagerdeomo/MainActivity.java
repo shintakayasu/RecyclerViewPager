@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_list);
-        mDemoRecyclerView = (RecyclerView) findViewById(R.id.demo_list);
+        mDemoRecyclerView = findViewById(R.id.demo_list);
         mDemoRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager
                 .VERTICAL));
         mDemoListAdapter = new DemoListAdapter();
@@ -58,18 +58,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, VerticalPagerActivity.class));
             }
         });
-        mDemoListAdapter.add(new DemoItem("Material Demo used Fragment") {
+        mDemoListAdapter.add(new DemoItem("Material Demo With Fragment") {
             @Override
             void onClick() {
                 startActivity(new Intent(MainActivity.this, FragmentMaterialDemoActivity.class));
             }
         });
-        mDemoListAdapter.add(new DemoItem("Material Demo") {
+        mDemoListAdapter.add(new DemoItem("Material Demo Without Fragment (Experimental Implementation)") {
             @Override
             void onClick() {
                 startActivity(new Intent(MainActivity.this, MaterialDemoActivity.class));
             }
         });
+		mDemoListAdapter.add(new DemoItem("Tmp") {
+			@Override
+			void onClick() {
+				startActivity(new Intent(MainActivity.this, TmpActivity.class));
+			}
+		});
     }
 
 

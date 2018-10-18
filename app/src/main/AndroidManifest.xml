@@ -31,6 +31,8 @@
             android:name=".widget.recyclerviewpagerdeomo.MaterialDemoActivity"
             android:theme="@style/Theme.DesignDemo">
         </activity>
+        <activity
+            android:name=".widget.recyclerviewpagerdeomo.TmpActivity"/>
     </application>
 
 </manifest>
