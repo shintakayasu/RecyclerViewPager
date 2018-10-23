@@ -1,13 +1,11 @@
 package com.lsjwzh.widget.recyclerviewpagerdeomo;
 
 import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.MutableLiveData;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,8 +13,6 @@ import com.lsjwzh.R;
 import com.lsjwzh.databinding.PagerItemBinding;
 import com.lsjwzh.widget.recyclerviewpager.TabLayoutSupport;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MaterialDemoListAdapter extends ListAdapter<PagerItemViewModel, MaterialDemoListAdapter.ViewHolder>
 		implements TabLayoutSupport.ViewPagerTabLayoutAdapter{
