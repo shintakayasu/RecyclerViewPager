@@ -27,6 +27,8 @@ public class RecyclerViewPager extends RecyclerView {
 	
 	private static final String TAG = RecyclerViewPager.class.getSimpleName();
 	
+	private float mFlingFactor = 0.15f;
+	
 	private RecyclerViewPagerAdapter<?> mViewPagerAdapter;
 	private List<OnPageChangedListener> mOnPageChangedListeners;
 	
@@ -134,6 +136,11 @@ public class RecyclerViewPager extends RecyclerView {
 			Log.d(TAG + ":scrollToPosition", "scrollToPosition:" + position);
 		}
 		super.scrollToPosition(position);
+	}
+	
+	@Override
+	public boolean fling(int velocityX, int velocityY) {
+		return super.fling((int) (velocityX * mFlingFactor), (int) (velocityY * mFlingFactor));
 	}
 	
 	private int getItemCount() {

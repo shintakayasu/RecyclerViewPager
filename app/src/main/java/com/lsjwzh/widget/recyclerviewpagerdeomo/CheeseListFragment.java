@@ -70,14 +70,13 @@ public class CheeseListFragment extends Fragment {
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(),
-                getRandomSublist(Cheeses.sCheeseStrings, 30)));
+                getRandomSublist(30)));
     }
 
-    private List<String> getRandomSublist(String[] array, int amount) {
-        ArrayList<String> list = new ArrayList<>(amount);
-        Random random = new Random();
+    private List<Cheeses> getRandomSublist(int amount) {
+        ArrayList<Cheeses> list = new ArrayList<>(amount);
         while (list.size() < amount) {
-            list.add(array[random.nextInt(array.length)]);
+            list.add(new Cheeses());
         }
         return list;
     }
@@ -87,7 +86,7 @@ public class CheeseListFragment extends Fragment {
 
         private final TypedValue mTypedValue = new TypedValue();
         private int mBackground;
-        private List<String> mValues;
+        private List<Cheeses> mValues;
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
             public String mBoundString;
@@ -109,11 +108,11 @@ public class CheeseListFragment extends Fragment {
             }
         }
 
-        public String getValueAt(int position) {
+        public Cheeses getValueAt(int position) {
             return mValues.get(position);
         }
 
-        public SimpleStringRecyclerViewAdapter(Context context, List<String> items) {
+        public SimpleStringRecyclerViewAdapter(Context context, List<Cheeses> items) {
             context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
             mBackground = mTypedValue.resourceId;
             mValues = items;
@@ -129,27 +128,17 @@ public class CheeseListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mBoundString = mValues.get(position);
-            holder.mTextView.setText(mValues.get(position));
+            holder.mBoundString = mValues.get(position).getText();
+            holder.mTextView.setText(mValues.get(position).getText());
             holder.mImageView.setTag(holder.hashCode()+""+position);
 
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Item Clicked!", Toast.LENGTH_SHORT).show();
-                }
-            });
+            holder.mView.setOnClickListener(v -> Toast.makeText(v.getContext(), "Item Clicked!", Toast.LENGTH_SHORT).show());
     
-            holder.mImageView.setImageResource(Cheeses.getRandomCheeseDrawable());
             Picasso.with(holder.mImageView.getContext())
-                    .load(Cheeses.getRandomCheeseDrawable())
+                    .load(mValues.get(position).getImageResId())
                     .centerInside()
                     .fit()
                     .into(holder.mImageView);
-//            Glide.with(holder.mImageView.getContext())
-//                    .load(Cheeses.getRandomCheeseDrawable())
-//                    .fitCenter()
-//                    .into();
         }
 
         @Override
