@@ -46,7 +46,6 @@ public class MaterialDemoListAdapter extends ListAdapter<PagerItemViewModel, Mat
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-//			return new ViewHolder(DataBindingUtil.setContentView(activity, R.layout.list_item));
 		return new ViewHolder(
 				DataBindingUtil.inflate(
 						LayoutInflater.from(viewGroup.getContext()),
@@ -62,16 +61,6 @@ public class MaterialDemoListAdapter extends ListAdapter<PagerItemViewModel, Mat
 		PagerItemViewModel pagerItemViewModel = getItem(i);
 		itemBinding.setViewModel(pagerItemViewModel);
 		
-		itemBinding.getRoot().setOnClickListener(v -> {
-			Log.d(TAG, "pos= "+ i + "  itemCount= " + itemBinding.cheeseRecyclerView.getAdapter().getItemCount());
-			
-			List<Cheeses> tmpList = pagerItemViewModel.getCheeseListLiveData().getValue();
-			tmpList.add(new Cheeses());
-			MutableLiveData<List<Cheeses>> tmpLiveData = new MutableLiveData<>();
-			tmpLiveData.setValue(tmpList);
-			pagerItemViewModel.setCheeseListLiveData(tmpLiveData);
-		});
-		
 		InnerRVListAdapter innerAdapter = new InnerRVListAdapter();
 		if(pagerItemViewModel.getCheeseListLiveData().getValue() != null) {
 			innerAdapter.submitList(pagerItemViewModel.getCheeseListLiveData().getValue());
@@ -80,7 +69,6 @@ public class MaterialDemoListAdapter extends ListAdapter<PagerItemViewModel, Mat
 		
 		pagerItemViewModel.getCheeseListLiveData().observe(lifecycleOwner, cheeses -> {
 			if (cheeses != null) {
-				Log.d(TAG, "pos= "+ i + "  cheeses size= " + cheeses.size());
 				innerAdapter.submitList(cheeses);
 			}
 		});

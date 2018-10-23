@@ -2,7 +2,6 @@ package com.lsjwzh;
 
 import android.app.Application;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
@@ -29,16 +28,20 @@ public class MyApp extends Application {
 		
 		Picasso.Builder builder = new Picasso.Builder(this);
 		builder.executor(Executors.newSingleThreadExecutor());
-		builder.listener((picasso, uri, exception) -> Log.e(TAG+":onImageLoadFailed()", "Picasso Error. uri = " + uri, exception));
+		builder.listener((picasso, uri, exception) -> {
+			if(BuildConfig.DEBUG) {
+//				Log.e(TAG + ":onImageLoadFailed()", "Picasso Error. uri = " + uri, exception);
+			}
+		});
 		Picasso picasso = builder.build();
-		picasso.setLoggingEnabled(BuildConfig.DEBUG);
+//		picasso.setLoggingEnabled(BuildConfig.DEBUG);
 		picasso.setIndicatorsEnabled(BuildConfig.DEBUG);
 		Picasso.setSingletonInstance(picasso);
 		
 	}
 	
 	/**
-	 * Picasso使った画像fetch. tagはImageViewのhashCode
+	 * fetch used Picasso. tag is ImageView hashCode.
 	 * @param iv
 	 * @param imageURL
 	 */
@@ -56,7 +59,7 @@ public class MyApp extends Application {
 	}
 	
 	/**
-	 * loadしてcacheするだけ
+	 * load and cache only
 	 * @param context
 	 * @param imageURL
 	 * @param tag

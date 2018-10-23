@@ -16,11 +16,6 @@
 
 package com.lsjwzh.widget.recyclerviewpagerdeomo;
 
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.DrawableRes;
-
-import com.lsjwzh.MyApp;
 import com.lsjwzh.R;
 
 import java.util.Random;
@@ -38,15 +33,6 @@ public class Cheeses {
         imageResId = getRandomCheeseDrawable();
     }
     
-    private Drawable getDrawable(@DrawableRes int id){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            return MyApp.getInstance().getDrawable(id);
-        }
-        else{
-            return MyApp.getInstance().getResources().getDrawable(id);
-        }
-    }
-    
     public String getText() {
         return text;
     }
@@ -55,7 +41,7 @@ public class Cheeses {
         return imageResId;
     }
     
-    public static int getRandomCheeseDrawable() {
+    private static int getRandomCheeseDrawable() {
         switch (RANDOM.nextInt(5)) {
             default:
             case 0:
@@ -71,7 +57,7 @@ public class Cheeses {
         }
     }
 
-    public static final String[] sCheeseStrings = {
+    private static final String[] sCheeseStrings = {
             "Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam", "Abondance", "Ackawi",
             "Acorn", "Adelost", "Affidelice au Chablis", "Afuega'l Pitu", "Airag", "Airedale",
             "Aisy Cendre", "Allgauer Emmentaler", "Alverca", "Ambert", "American Cheese",

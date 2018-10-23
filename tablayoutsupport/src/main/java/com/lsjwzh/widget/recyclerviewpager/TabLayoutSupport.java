@@ -114,7 +114,6 @@ public class TabLayoutSupport {
                             false);
                 }
             }
-            Log.d("test", "dx:" + positionOffset);
         }
 
         @Override

@@ -83,13 +83,16 @@ public class RecyclerViewPager extends RecyclerView {
 			@Override
 			public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
 				super.onScrollStateChanged(recyclerView, newState);
+				
+				if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+					currentItemPositionSubject.onNext(getCurrentPosition());
+				}
 			}
 			
 			@Override
 			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 				super.onScrolled(recyclerView, dx, dy);
 				
-				currentItemPositionSubject.onNext(getCurrentPosition());
 			}
 		});
 	}
