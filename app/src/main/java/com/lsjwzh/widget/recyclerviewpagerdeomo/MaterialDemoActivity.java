@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.lsjwzh.BuildConfig;
 import com.lsjwzh.R;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.lsjwzh.widget.recyclerviewpager.TabLayoutSupport;
@@ -43,8 +44,11 @@ public class MaterialDemoActivity extends AppCompatActivity {
 		mRecyclerView.setAdapter(mAdapter);
 		mRecyclerView.setHasFixedSize(true);
 		mRecyclerView.setLongClickable(true);
-		mRecyclerView.addItemDecoration(new SpacesItemDecoration(50, mRecyclerView.getAdapter().getItemCount()));
-		mRecyclerView.addOnPageChangedListener((oldPosition, newPosition) -> Log.d("test", "oldPosition:" + oldPosition + " newPosition:" + newPosition));
+		mRecyclerView.addOnPageChangedListener((oldPosition, newPosition) -> {
+			if(BuildConfig.DEBUG) {
+				Log.d("test", "oldPosition:" + oldPosition + " newPosition:" + newPosition);
+			}
+		});
 		
 		
 		
